@@ -1,12 +1,15 @@
 package com.paulohenrique.academicsystem.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 
@@ -25,12 +28,15 @@ public class Student implements Serializable{
 	private String phone;
 	private String course;
 	private String password;
+	private Double nota;
+	@ManyToMany(mappedBy="student")
+	private List<Disciplines> disciplines =new ArrayList<>();
 	
 	public Student () {
 		
 	}
 
-	public Student(Long id, String name, String email, String phone, String course, String password) {
+	public Student(Long id, String name, String email, String phone, String course, String password, Double nota) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -38,6 +44,7 @@ public class Student implements Serializable{
 		this.phone = phone;
 		this.course = course;
 		this.password = password;
+		this.nota=nota;
 	}
 
 	public Long getId() {
@@ -86,6 +93,20 @@ public class Student implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	
+
+	public Double getNota() {
+		return nota;
+	}
+
+	public void setNota(Double nota) {
+		this.nota = nota;
+	}
+
+	public List<Disciplines> getDisciplines() {
+		return disciplines;
 	}
 
 	@Override
