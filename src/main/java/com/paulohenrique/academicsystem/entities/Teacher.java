@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,19 +25,20 @@ public class Teacher implements Serializable {
 	private Long id;
 	private String name;
 	private String trainingArea;
-	@OneToMany(mappedBy="teacher")
+	//@JsonIgnore
+	@ManyToMany(mappedBy="teacher")
     private List<Disciplines> disciplines =new ArrayList<>();
     
     public Teacher() {
     	
     }
 
-	public Teacher(Long id, String name, String trainingArea) {
+	public Teacher(Long id, String name, String trainingArea, List<Disciplines> disciplines) {
 		super();
 		this.id=id;
 		this.name = name;
 		this.trainingArea = trainingArea;
-		//this.disciplines = disciplines;
+		this.disciplines = disciplines;
 		
 	}
 

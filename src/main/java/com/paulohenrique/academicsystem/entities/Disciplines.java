@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,11 +28,11 @@ public class Disciplines implements Serializable {
 	private Long id;
 	private String name;
 	private Integer workLoad;
-	
+	@JsonIgnore
 	@ManyToOne()
 	@JoinColumn(name="teacher_id")
 	private Teacher teacher;
-	
+	//
 	@ManyToMany
 	@JoinColumn(name="student_id")
 	private List<Student> student =new ArrayList<>();
@@ -40,14 +42,16 @@ public class Disciplines implements Serializable {
 		
 	}
 
-	public Disciplines(Long id,String name, Integer workLoad, Teacher teacher) {
+	public Disciplines(Long id,String name, Integer workLoad, Teacher teacher, List<Student> student) {
 		super();
 		this.id=id;
 		this.name = name;
 		this.workLoad = workLoad;
 		this.teacher = teacher;
+		this.student=student;
 	}
 
+	
 	public String getName() {
 		return name;
 	}
